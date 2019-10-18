@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "553369733915",
+    "firebase_url": "https://cahtapp-f2740.firebaseio.com",
+    "project_id": "cahtapp-f2740",
+    "storage_bucket": "cahtapp-f2740.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553369733915:android:ae54c79b393e50708f21be",
+        "android_client_info": {
+          "package_name": "com.example.georgesamuel.cahtapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553369733915-6t1tsa8aj4avof3n6a2966pltcgtliv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.georgesamuel.cahtapp",
+            "certificate_hash": "2f01c6ed829eb1420d54d3c3d0d8ec81ea107781"
+          }
+        },
+        {
+          "client_id": "553369733915-pm6jbd8pp50dq9r9semk1oer98edmpqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgmVBY35NuHiL--3GThFNdgKU7fLghStI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553369733915-pm6jbd8pp50dq9r9semk1oer98edmpqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
