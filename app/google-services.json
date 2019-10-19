@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "553369733915-6t1tsa8aj4avof3n6a2966pltcgtliv0.apps.googleusercontent.com",
+          "client_id": "553369733915-fkfjque2qj11j096hv0mv1tv83v74lca.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.georgesamuel.cahtapp",
@@ -36,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "553369733915-pm6jbd8pp50dq9r9semk1oer98edmpqs.apps.googleusercontent.com",
+              "client_id": "553369733915-fkfjque2qj11j096hv0mv1tv83v74lca.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

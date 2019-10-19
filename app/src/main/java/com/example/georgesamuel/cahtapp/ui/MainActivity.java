@@ -1,15 +1,20 @@
-package com.example.georgesamuel.cahtapp;
+package com.example.georgesamuel.cahtapp.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.georgesamuel.cahtapp.R;
+import com.example.georgesamuel.cahtapp.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
     Button btnSend;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference("copyright");
         mRef.child("test").addValueEventListener(new ValueEventListener() {
@@ -70,6 +77,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.signout){
+            mAuth.signOut();
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

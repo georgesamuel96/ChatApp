@@ -1,4 +1,4 @@
-package com.example.georgesamuel.cahtapp;
+package com.example.georgesamuel.cahtapp.model;
 
 public class User {
     private String name;
