@@ -1,4 +1,4 @@
-package com.example.georgesamuel.navigationComponent;
+package com.example.georgesamuel.cahtapp;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.georgesamuel.navigationComponent;
+package com.example.georgesamuel.cahtapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.georgesamuel.navigationComponent", appContext.getPackageName());
+        assertEquals("com.example.georgesamuel.cahtapp", appContext.getPackageName());
     }
 }
