@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">ChatApp</string>
     <string name="signout">SignOut</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_name">Your name</string>
+    <string name="your_email">Your email</string>
+    <string name="your_password">Your password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="forget_your_password">Forget your password ?</string>
 </resources>

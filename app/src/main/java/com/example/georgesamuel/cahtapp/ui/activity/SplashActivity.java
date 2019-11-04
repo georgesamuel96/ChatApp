@@ -1,4 +1,4 @@
-package com.example.georgesamuel.cahtapp.ui;
+package com.example.georgesamuel.cahtapp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
