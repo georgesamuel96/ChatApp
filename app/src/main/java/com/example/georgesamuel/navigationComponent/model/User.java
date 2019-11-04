@@ -1,4 +1,4 @@
-package com.example.georgesamuel.cahtapp.model;
+package com.example.georgesamuel.navigationComponent.model;
 
 public class User {
     private String name;
