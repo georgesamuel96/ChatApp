@@ -104,7 +104,7 @@ public class SplashActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.w(TAG, "signInWithCredential:failure ", task.getException());
                             Toast.makeText(SplashActivity.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
