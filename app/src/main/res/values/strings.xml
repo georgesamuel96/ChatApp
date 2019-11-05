@@ -11,4 +11,8 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="forget_your_password">Forget your password ?</string>
+    <string name="error_confirm_password">Confirm password must same as password</string>
+    <string name="error_email">Write correct email</string>
+    <string name="error_password">Password length must more than 8 characters</string>
+    <string name="error_name">Write your name</string>
 </resources>

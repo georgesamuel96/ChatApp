@@ -49,7 +49,7 @@ public class SplashFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(mUser != null){
-            Navigation.findNavController(getView()).navigate(R.id.action_splashFragment_to_mainFragment);
+            Navigation.findNavController(getView()).navigate(R.id.action_splashFragment_to_mainGraph);
         }
         else{
             Navigation.findNavController(getView()).navigate(R.id.action_splashFragment_to_loginFragment);

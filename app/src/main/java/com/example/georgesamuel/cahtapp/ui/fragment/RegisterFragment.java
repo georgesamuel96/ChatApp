@@ -2,19 +2,37 @@ package com.example.georgesamuel.cahtapp.ui.fragment;
 
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.georgesamuel.cahtapp.R;
+import com.example.georgesamuel.cahtapp.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -36,6 +54,11 @@ public class RegisterFragment extends Fragment {
     TextInputLayout etConfirmPass;
     @BindView(R.id.btn_register)
     MaterialButton btnRegister;
+    private static final String TAG = RegisterFragment.class.getSimpleName();
+    @BindView(R.id.loading)
+    ProgressBar loading;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mReference;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -47,16 +70,116 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
+        ButterKnife.bind(this, view);
+        init();
         return view;
+    }
+
+    private void init() {
+        mAuth = FirebaseAuth.getInstance();
+        etPassword.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 7)
+                    etPassword.setErrorEnabled(false);
+                else
+                    etPassword.setErrorEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @OnClick(R.id.btn_register)
     public void onRegisterClicked() {
+        setNoErrors();
+        checkFields();
+    }
+
+    private void setNoErrors() {
+        etName.setErrorEnabled(false);
+        etEmail.setErrorEnabled(false);
+        etPassword.setErrorEnabled(false);
+        etConfirmPass.setErrorEnabled(false);
+    }
+
+    private void checkFields() {
         final String name = etName.getEditText().getText().toString().trim();
         final String email = etEmail.getEditText().getText().toString().trim();
         final String password = etPassword.getEditText().getText().toString();
         final String confirmPassword = etConfirmPass.getEditText().getText().toString();
-        if(!password.equals(confirmPassword)){
+        if (name.equals("")) {
+            etName.setError(getString(R.string.error_name));
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError(getString(R.string.error_email));
+        } else if (password.length() < 8) {
+            etPassword.setError(getString(R.string.error_password));
+        } else if (!password.equals(confirmPassword)) {
+            etConfirmPass.setError(getString(R.string.error_confirm_password));
+        } else {
+            register(name, email, password);
+        }
+    }
+
+    private void register(String name, String email, String password) {
+        loading.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user, name, email);
+                    } else {
+                        loading.setVisibility(View.INVISIBLE);
+                        Log.d(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(getContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser user, String name, String email) {
+        final String userId = user.getUid();
+        mReference = FirebaseDatabase.getInstance().getReference(Utils.USERS).child(userId);
+        HashMap<String, Object> currentUser = new HashMap<>();
+        currentUser.put(Utils.CURRENT_USER_ID, userId);
+        currentUser.put(Utils.CURRENT_USER_NAME, name);
+        currentUser.put(Utils.CURRENT_USER_EMAIL, email);
+        currentUser.put(Utils.CURRENT_USER_IMAGE_URL, "default");
+        currentUser.put(Utils.CURRENT_USER_VERIFIED, false);
+        mReference.setValue(currentUser).addOnCompleteListener(getActivity(), task -> {
+            if (task.isSuccessful()) {
+                loading.setVisibility(View.INVISIBLE);
+                Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_mainGraph);
+            }
+            else{
+                loading.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    @OnClick({R.id.et_name, R.id.et_email, R.id.et_password, R.id.et_confirm_pass})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.et_name:
+                setNoErrors();
+                break;
+            case R.id.et_email:
+                setNoErrors();
+                break;
+            case R.id.et_password:
+                setNoErrors();
+                break;
+            case R.id.et_confirm_pass:
+                setNoErrors();
+                break;
         }
     }
 }

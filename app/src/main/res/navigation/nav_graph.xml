@@ -16,8 +16,10 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true"/>
         <action
-            android:id="@+id/action_splashFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_splashFragment_to_mainGraph"
+            app:destination="@id/mainGraph"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -32,10 +34,24 @@
         android:id="@+id/registerFragment"
         android:name="com.example.georgesamuel.cahtapp.ui.fragment.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
-    <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.georgesamuel.cahtapp.ui.fragment.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_mainGraph"
+            app:destination="@id/mainGraph"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <navigation
+        android:id="@+id/mainGraph"
+        app:startDestination="@id/mainFragment">
+
+        <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.example.georgesamuel.cahtapp.ui.fragment.MainFragment"
+            android:label="fragment_main"
+            tools:layout="@layout/fragment_main">
+        </fragment>
+    </navigation>
+
 </navigation>
