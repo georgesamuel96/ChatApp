@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.georgesamuel.cahtapp.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import butterknife.BindView;
@@ -51,5 +52,11 @@ public class RegisterFragment extends Fragment {
 
     @OnClick(R.id.btn_register)
     public void onRegisterClicked() {
+        final String name = etName.getEditText().getText().toString().trim();
+        final String email = etEmail.getEditText().getText().toString().trim();
+        final String password = etPassword.getEditText().getText().toString();
+        final String confirmPassword = etConfirmPass.getEditText().getText().toString();
+        if(!password.equals(confirmPassword)){
+        }
     }
 }
