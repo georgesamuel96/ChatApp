@@ -1,15 +1,17 @@
 package com.example.georgesamuel.cahtapp.model;
 
 public class User {
-    private String name;
+    private String username;
     private String email;
+    private String imageURL;
+    private String id;
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     public String getEmail() {
@@ -18,5 +20,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImageUrl() {
+        return imageURL;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageURL = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

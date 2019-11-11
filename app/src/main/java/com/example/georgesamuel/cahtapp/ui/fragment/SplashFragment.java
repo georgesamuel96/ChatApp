@@ -1,6 +1,7 @@
 package com.example.georgesamuel.cahtapp.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.georgesamuel.cahtapp.R;
+import com.example.georgesamuel.cahtapp.ui.activity.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -49,7 +51,8 @@ public class SplashFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(mUser != null){
-            Navigation.findNavController(getView()).navigate(R.id.action_splashFragment_to_mainGraph);
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
         }
         else{
             Navigation.findNavController(getView()).navigate(R.id.action_splashFragment_to_loginFragment);

@@ -1,6 +1,7 @@
 package com.example.georgesamuel.cahtapp.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,8 @@ import androidx.navigation.Navigation;
 
 import com.example.georgesamuel.cahtapp.R;
 import com.example.georgesamuel.cahtapp.Utils;
+import com.example.georgesamuel.cahtapp.model.User;
+import com.example.georgesamuel.cahtapp.ui.activity.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -76,6 +79,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void init() {
+        initToolbar();
         mAuth = FirebaseAuth.getInstance();
         etPassword.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,6 +99,13 @@ public class RegisterFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
+        });
+    }
+
+    private void initToolbar() {
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
+        toolbar.setNavigationOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_registerFragment_pop);
         });
     }
 
@@ -148,16 +159,16 @@ public class RegisterFragment extends Fragment {
     private void updateUI(FirebaseUser user, String name, String email) {
         final String userId = user.getUid();
         mReference = FirebaseDatabase.getInstance().getReference(Utils.USERS).child(userId);
-        HashMap<String, Object> currentUser = new HashMap<>();
-        currentUser.put(Utils.CURRENT_USER_ID, userId);
-        currentUser.put(Utils.CURRENT_USER_NAME, name);
-        currentUser.put(Utils.CURRENT_USER_EMAIL, email);
-        currentUser.put(Utils.CURRENT_USER_IMAGE_URL, "default");
-        currentUser.put(Utils.CURRENT_USER_VERIFIED, false);
+        User currentUser = new User();
+        currentUser.setEmail(email);
+        currentUser.setId(userId);
+        currentUser.setImageUrl("default");
+        currentUser.setName(name);
         mReference.setValue(currentUser).addOnCompleteListener(getActivity(), task -> {
             if (task.isSuccessful()) {
                 loading.setVisibility(View.INVISIBLE);
-                Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_mainGraph);
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
             }
             else{
                 loading.setVisibility(View.INVISIBLE);
